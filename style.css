@@ -1,0 +1,249 @@
+/* Reset general */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f7f7f7;
+    padding-top: 80px; /* espacio para el nav */
+  }
+
+/* Sección informativa */
+.about-section {
+  background-color: #fff;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.about-section h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.about-section p {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Responsive navbar */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-wrap: wrap;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .navbar-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 1rem;
+  }
+
+  .navbar-menu li {
+    text-align: center;
+    padding: 0.5rem 0;
+  }
+
+  .navbar-menu.active {
+    display: flex;
+  }
+}
+
+  /* NAVBAR */
+.navbar {
+    background-color: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+  }
+  .logo-img {
+    height: 40px;
+    object-fit: contain;
+    margin: 0;
+  }
+  
+  
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .navbar-logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .navbar-menu a:hover {
+    color: #007BFF;
+  }
+  
+  .btn-sumate {
+    background-color: #007BFF;
+    color: #fff !important;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+  }
+  
+  .btn-sumate:hover {
+    background-color: #0056b3;
+  }
+
+  /* Sección informativa */
+.about-section {
+    background-color: #fff;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  
+  .about-section h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .about-section p {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  /* Responsive navbar */
+  .menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-container {
+      flex-wrap: wrap;
+    }
+  
+    .menu-toggle {
+      display: block;
+    }
+  
+    .navbar-menu {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      padding-top: 1rem;
+    }
+  
+    .navbar-menu li {
+      text-align: center;
+      padding: 0.5rem 0;
+    }
+  
+    .navbar-menu.active {
+      display: flex;
+    }
+  }
+  
+  
+  /* Hero section */
+  .hero-section {
+    background-image: url('https://images.unsplash.com/photo-1508780709619-79562169bc64'); /* Cambiá por tu imagen */
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .hero-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    border-radius: 12px;
+  }
+  
+  .hero-overlay h1 {
+    color: #fff;
+    font-size: 2rem;
+    text-align: center;
+    margin: 0;
+  }
+  
+  /* Cards section */
+  .cards-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+  }
+  
+  .card {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  .card-description {
+    font-size: 0.95rem;
+    color: #666;
+  }
+  

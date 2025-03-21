@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nova Lions</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+ <!-- NAVBAR -->
+ <nav class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-logo">
+        <a href="#">
+          <img src="/brand/logoNL.png" alt="Nova Lions" class="logo-img" />
+        </a>
+      </div>
+      <button class="menu-toggle" id="menu-toggle">&#9776;</button>
+      <ul class="navbar-menu" id="navbar-menu">
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Sobre nosotros</a></li>
+        <li><a href="#" class="btn-sumate">Sumate</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+
+  <!-- Sección de portada -->
+  <section class="hero-section">
+    <div class="hero-overlay">
+      <h1>Tu Plan de Negocio, tu Plan de Vida</h1>
+    </div>
+  </section>
+
+
+   <!-- Sección informativa -->
+   <section class="about-section">
+    <div class="about-container">
+      <h2>¿Qué es Nova Lions?</h2>
+      <p>NovaLions es una comunidad de emprendedores que decidió tomar el control de su vida a través de un modelo de negocio accesible, flexible y en constante crecimiento. Creemos que hoy más que nunca, emprender es una forma de libertad. No necesitás experiencia previa ni una gran inversión: solo tus ganas de crecer.</p>
+    </div>
+  </section>
+
+  <!-- Sección de tarjetas -->
+  <section class="cards-section">
+    <div class="card">
+      <div class="card-icon">💼</div>
+      <div class="card-title">Negocio propio</div>
+      <div class="card-description">Te brindamos la posibilidad de tener tu propia Franquicia. La misma se obtiene a través de la venta de productos Premium.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">💳</div>
+      <div class="card-title">Financiamiento</div>
+      <div class="card-description">Hasta un 90% del valor del producto. Incluso hacemos las cobranzas de las ventas financiadas.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📞</div>
+      <div class="card-title">Atención al cliente</div>
+      <div class="card-description">Servicio de posventa y seguimiento personalizado a nuestros clientes.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📚</div>
+      <div class="card-title">Capacitaciones</div>
+      <div class="card-description">Las mismas son gratuitas, Contamos con una Plataforma Virtual para que te puedas capacitar desde donde estés.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🛡️</div>
+      <div class="card-title">Garantía</div>
+      <div class="card-description">Nuestro producto tiene una increíble garantía de 50 años.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🚚</div>
+      <div class="card-title">Entrega</div>
+      <div class="card-description">Recibe los productos en la comodidad de tu hogar.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🆕</div>
+      <div class="card-title">Cero Experiencia</div>
+      <div class="card-description">Para iniciar no es necesario que tengas experiencia en venta.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📦</div>
+      <div class="card-title">Sin inventario - stock</div>
+      <div class="card-description">Nos encargamos de la logística y entrega, vos solo te enfocás en crecer.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">💰</div>
+      <div class="card-title">Cero inversión inicial</div>
+      <div class="card-description">Comenzá tu negocio sin necesidad de capital inicial.</div>
+    </div>
+  </section>
+
+
+
+  <script>
+    const toggleButton = document.getElementById('menu-toggle');
+    const navbarMenu = document.getElementById('navbar-menu');
+  
+    toggleButton.addEventListener('click', () => {
+      navbarMenu.classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>
