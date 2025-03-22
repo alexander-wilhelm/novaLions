@@ -1,5 +1,5 @@
 html, body {
-  background-color: #113880 !important;
+  background-color: #fbfdff !important;
 }
 
 .navbar {
@@ -10,14 +10,16 @@ html, body {
   height: 50px;
 }
 
+
 .masthead_index {
   height: 70vh;
   min-height: 500px;
   color: white;
   background-image: url('brand/hero_v2.jpg'); /* Ruta de tu imagen de fondo */
   background-size: cover;
-  background-position: top;
+  background-position: center; /* Centra la imagen */
   background-repeat: no-repeat;
+  background-attachment: fixed; /* Fija la imagen de fondo */
   position: relative; /* Necesario para el pseudo-elemento */
 }
 
@@ -29,20 +31,14 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #113880b0; /* Negro con 50% de opacidad */
-  
+  background-color: rgba(17, 56, 128, 0.7); /* Negro con 70% de opacidad */
+  z-index: 1; /* Asegura que esté por encima del fondo */
 }
 
 /* Asegurar que el contenido esté por encima de la superposición */
 .masthead_index .container {
   position: relative;
-  z-index: 1; /* Coloca el contenido por encima de la superposición */
-}
-
-/* Ajustar el color del texto para que resalte más */
-.masthead_index h1 {
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para mejorar la legibilidad */
+  z-index: 2; /* Coloca el contenido por encima de la superposición */
 }
 
 
@@ -51,7 +47,10 @@ html, body {
   background-color: #113880; /* Fondo azul oscuro */
   padding: 30px 0; /* Espaciado interno */
   color: white; /* Color del texto */
+  
+  
 }
+
 
 .about-container {
   max-width: 800px; /* Ancho máximo del contenedor */
@@ -64,7 +63,7 @@ html, body {
   font-size: 2.5rem; /* Tamaño del título */
   font-weight: bold; /* Negrita */
   margin-bottom: 20px; /* Espacio debajo del título */
-  color: #ffffff; /* Color dorado para el título */
+  color: #ffd34e; /* Color dorado para el título */
 }
 
 .about-container p {
@@ -76,7 +75,7 @@ html, body {
 /* Efecto hover para resaltar la sección */
 .about-section:hover {
   background-color: #0a214d; /* Cambio de color al pasar el mouse */
-  transition: background-color 0.3s ease; /* Transición suave */
+  transition: background-color 1s ease; /* Transición suave */
 }
 
 
@@ -93,11 +92,14 @@ html, body {
   border: 1px solid #ddd;
   border-radius: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
 }
 
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #11388025;
+  transition: 0.3s;
 }
 
 .card-icon {
@@ -116,12 +118,13 @@ html, body {
 
 .btn-primary {
   color: #fff;
-  border-color: #002725 !important;
+  border-color: none;
+  background-color: #113880 !important;
 }
 
 .btn-primary:focus, .btn-primary.focus {
   outline: 0;
-  box-shadow: 0 0 5px #002725 !important;
+  box-shadow: 0 0 5px #000000fd !important;
 }
 
 @media (max-width: 500px) {
@@ -148,7 +151,7 @@ html, body {
 }
 
 .btn-social-media {
-  background-color: #0C7872 !important;
+  background-color: #113880 !important;
   color: #fff !important;
 }
 
@@ -206,4 +209,66 @@ html, body {
   .btn-scroll-top.show {
       bottom: 1rem;
   }
+}
+
+/* Estilos para la sección Candidatos */
+.candidatos-section {
+  background: linear-gradient(to right, #113880, #0a214d); /* Gradiente moderno */
+  padding: 80px 0; /* Más espacio */
+  color: #ffffff; /* Texto blanco */
+}
+
+.candidatos-section .text-content {
+  padding: 20px;
+  text-align: left;
+}
+
+.candidatos-section .section-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #ffd34e; /* Título en dorado */
+}
+
+.candidatos-section .section-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.candidatos-section .section-highlight {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffd34e; /* Texto destacado en dorado */
+  margin-bottom: 30px;
+}
+
+.candidatos-section .btn-cta {
+  background-color: #ffd34e; /* Botón dorado */
+  color: #113880; /* Texto azul oscuro */
+  font-weight: bold;
+  padding: 12px 30px;
+  border-radius: 50px; /* Bordes redondeados */
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+.candidatos-section .btn-cta:hover {
+  background-color: #e6b400; /* Cambio de color al hover */
+}
+
+.candidatos-section .image-wrapper {
+  border-radius: 15px; /* Bordes redondeados para la imagen */
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+}
+
+.candidatos-section .image-wrapper img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.candidatos-section .image-wrapper img:hover {
+  transform: scale(1.05); /* Efecto de zoom al pasar el mouse */
 }
