@@ -1,5 +1,7 @@
-html, body {
+html,
+body {
   background-color: #fbfdff !important;
+  font-family: 'Montserrat', sans-serif !important;
 }
 
 .navbar {
@@ -15,12 +17,12 @@ html, body {
   height: 70vh;
   min-height: 500px;
   color: white;
-  background-image: url('brand/hero_v2.jpg'); /* Ruta de tu imagen de fondo */
+  background-image: url('brand/hero_v2.jpg');
   background-size: cover;
-  background-position: center; /* Centra la imagen */
+  background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed; /* Fija la imagen de fondo */
-  position: relative; /* Necesario para el pseudo-elemento */
+  background-attachment: fixed;
+  position: relative;
 }
 
 /* Superposición oscura */
@@ -31,55 +33,52 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(17, 56, 128, 0.7); /* Negro con 70% de opacidad */
-  z-index: 1; /* Asegura que esté por encima del fondo */
+  background: linear-gradient(135deg, rgba(17, 56, 128, 0.8) 0%, rgba(10, 33, 77, 0.9) 100%);
+  z-index: 1;
 }
 
-/* Asegurar que el contenido esté por encima de la superposición */
 .masthead_index .container {
   position: relative;
-  z-index: 2; /* Coloca el contenido por encima de la superposición */
+  z-index: 2;
 }
 
 
 /* Estilos para la sección "¿Qué es Nova Lions?" */
 .about-section {
-  background-color: #113880; /* Fondo azul oscuro */
-  padding: 30px 0; /* Espaciado interno */
-  color: white; /* Color del texto */
-  
-  
+  background-color: #113880;
+  padding: 30px 0;
+  color: white;
+
+
 }
 
 
 .about-container {
-  max-width: 800px; /* Ancho máximo del contenedor */
-  margin: 0 auto; /* Centrar el contenedor */
+  max-width: 800px;
+  margin: 0 auto;
   padding: 10px;
-  text-align: center; /* Texto centrado */
+  text-align: center;
 }
 
 .about-container h2 {
-  font-size: 2.5rem; /* Tamaño del título */
-  font-weight: bold; /* Negrita */
-  margin-bottom: 20px; /* Espacio debajo del título */
-  color: #ffd34e; /* Color dorado para el título */
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #ffd34e;
 }
 
 .about-container p {
-  font-size: 1.2rem; /* Tamaño del párrafo */
-  line-height: 1.6; /* Espaciado entre líneas */
-  color: #F5F5F5; /* Color gris claro para el texto */
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #F5F5F5;
 }
 
 /* Efecto hover para resaltar la sección */
 .about-section:hover {
-  background-color: #0a214d; /* Cambio de color al pasar el mouse */
-  transition: background-color 1s ease; /* Transición suave */
+  background-color: #0a214d;
+  transition: background-color 1s ease;
+
 }
-
-
-
 
 
 
@@ -92,27 +91,33 @@ html, body {
   border: 1px solid #ddd;
   border-radius: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
+
+}
+
+.card-icon img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
 }
 
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #11388025;
+  background-color: rgba(17, 56, 128, 0.145);
   transition: 0.3s;
 }
 
 .card-icon {
-  color: #0C7872; /* Color del ícono */
+  color: #0C7872;
 }
 
 .card-title {
-  color: #113880; /* Color del título */
+  color: #113880;
   font-weight: bold;
 }
 
 .card-description {
-  color: #555; /* Color del texto */
+  color: #555;
 }
 
 
@@ -122,14 +127,15 @@ html, body {
   background-color: #113880 !important;
 }
 
-.btn-primary:focus, .btn-primary.focus {
+.btn-primary:focus,
+.btn-primary.focus {
   outline: 0;
   box-shadow: 0 0 5px #000000fd !important;
 }
 
 @media (max-width: 500px) {
   .img_logo {
-      height: 40px;
+    height: 40px;
   }
 }
 
@@ -150,10 +156,7 @@ html, body {
   border: 0;
 }
 
-.btn-social-media {
-  background-color: #113880 !important;
-  color: #fff !important;
-}
+
 
 .btn-scroll-top {
   --si-btn-scroll-top-size: 2.75rem;
@@ -180,7 +183,14 @@ html, body {
   z-index: 1030;
 }
 
-.btn-scroll-top > .btn-scroll-top-icon {
+:root {
+  --primary-blue: #113880;
+  --secondary-blue: #0a214d;
+  --accent-gold: #ffd34e;
+  --text-light: #f5f5f5;
+}
+
+.btn-scroll-top>.btn-scroll-top-icon {
   font-size: var(--si-btn-scroll-top-icon-size);
   font-weight: bold;
 }
@@ -202,20 +212,22 @@ html, body {
 
 @media (max-width: 499.98px) {
   .btn-scroll-top {
-      width: calc(var(--si-btn-scroll-top-size) * 0.8);
-      height: calc(var(--si-btn-scroll-top-size) * 0.8);
-      right: 1rem;
+    width: calc(var(--si-btn-scroll-top-size) * 0.8);
+    height: calc(var(--si-btn-scroll-top-size) * 0.8);
+    right: 1rem;
   }
+
   .btn-scroll-top.show {
-      bottom: 1rem;
+    bottom: 1rem;
   }
 }
 
 /* Estilos para la sección Candidatos */
 .candidatos-section {
-  background: linear-gradient(to right, #113880, #0a214d); /* Gradiente moderno */
-  padding: 80px 0; /* Más espacio */
-  color: #ffffff; /* Texto blanco */
+  background: url('brand/texture.png'), linear-gradient(to right, #113880, #0a214d);
+  background-blend-mode: overlay;
+  padding: 80px 0;
+  color: #ffffff;
 }
 
 .candidatos-section .text-content {
@@ -227,7 +239,7 @@ html, body {
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 20px;
-  color: #ffd34e; /* Título en dorado */
+  color: #ffd34e;
 }
 
 .candidatos-section .section-description {
@@ -239,28 +251,30 @@ html, body {
 .candidatos-section .section-highlight {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #ffd34e; /* Texto destacado en dorado */
+  color: #ffd34e;
   margin-bottom: 30px;
 }
 
 .candidatos-section .btn-cta {
-  background-color: #ffd34e; /* Botón dorado */
-  color: #113880; /* Texto azul oscuro */
+  background-color: #ffd34e;
+  color: #113880;
   font-weight: bold;
   padding: 12px 30px;
-  border-radius: 50px; /* Bordes redondeados */
+  border-radius: 50px;
   text-transform: uppercase;
   transition: background-color 0.3s ease;
 }
 
 .candidatos-section .btn-cta:hover {
-  background-color: #e6b400; /* Cambio de color al hover */
+  background-color: #e6b400;
+
 }
 
 .candidatos-section .image-wrapper {
-  border-radius: 15px; /* Bordes redondeados para la imagen */
+  border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  
 }
 
 .candidatos-section .image-wrapper img {
@@ -270,5 +284,42 @@ html, body {
 }
 
 .candidatos-section .image-wrapper img:hover {
-  transform: scale(1.05); /* Efecto de zoom al pasar el mouse */
+  transform: scale(1.05);
+  /* Efecto de zoom al pasar el mouse */
+}
+
+
+.btn-social {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.btn-social:hover {
+  background-color: #ffd34e;
+  border-color: #ffd34e;
+  color: #343a40 !important;
+}
+
+.footer a:hover {
+  opacity: 1 !important;
+  color: #ffd34e !important;
+}
+
+.footer h5 {
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer h5::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px;
+  height: 2px;
+  background: #ffd34e;
 }
