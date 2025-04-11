@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nova Lions - Calculadora</title>
+    <link rel="icon" type="image/x-icon" href="brand/novalions.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --info: #3498db;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f5f7fa;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 5px;
+        }
+
+        .calculator-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            box-shadow: var(--box-shadow);
+            display: none;
+            /* Ocultar calculadora hasta login */
+        }
+
+        /* Estilos para el login */
+        .login-section {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+
+        .login-section h2 {
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .login-section input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+
+        .login-section button {
+            background-color: var(--secondary);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            width: 100%;
+            transition: var(--transition);
+        }
+
+        .login-section button:hover {
+            background-color: #2980b9;
+        }
+
+        .login-error {
+            color: var(--accent);
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Resto de estilos existentes... */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--light);
+        }
+
+        select:focus,
+        input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        button {
+            background-color: var(--secondary);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            width: 100%;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #results {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            display: none;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: var(--secondary);
+        }
+
+        .error {
+            color: var(--accent);
+            padding: 15px;
+            background-color: rgba(231, 76, 60, 0.1);
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #selected-products {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            background-color: white;
+        }
+
+        .selected-product {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .selected-product:last-child {
+            border-bottom: none;
+        }
+
+        .remove-product {
+            color: var(--accent);
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            padding: 5px;
+        }
+
+        .total-display {
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        /* Estilos para el selector de productos */
+        .product-select-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            min-height: 45px;
+            padding: 5px;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: var(--secondary);
+            border: none;
+            border-radius: 4px;
+            color: white;
+            padding: 2px 8px;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+            color: white;
+            margin-right: 5px;
+        }
+
+        /* Estilos para el anticipo flexible */
+        .advance-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .advance-options button {
+            flex: 1;
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+
+        .advance-options button.active {
+            background-color: var(--success);
+        }
+
+        /* Botón copiar resultados */
+        #copy-results {
+            background-color: var(--success);
+            margin-top: 15px;
+        }
+
+        #copy-results:hover {
+            background-color: #27ae60;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            h2 {
+                font-size: 1.1rem;
+            }
+
+            .calculator-section {
+                padding: 15px;
+            }
+
+            select,
+            input {
+                padding: 10px 12px;
+            }
+
+            .advance-options {
+                flex-direction: column;
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .copy-feedback {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--success);
+            color: white;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            z-index: 1000;
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <img style="max-width: 30%;" src="brand/logo_nl.svg" alt="">
+            <h1><i class="fas fa-calculator"></i> Calculadora</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Sección de Login -->
+        <div class="login-section" id="login-section">
+            <h2><i class="fas fa-lock"></i> Iniciar Sesión</h2>
+            <input type="text" id="username" placeholder="Usuario" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <button id="login-btn"><i class="fas fa-sign-in-alt"></i> Ingresar</button>
+            <div class="login-error" id="login-error">
+                <i class="fas fa-exclamation-circle"></i> Usuario o contraseña incorrectos
+            </div>
+        </div>
+
+        <!-- Sección de la Calculadora (oculta inicialmente) -->
+        <div class="calculator-section" id="calculator-section">
+            <h2><i class="fas fa-calculator"></i> Calculadora de Financiamiento</h2>
+
+            <div class="form-group">
+                <label><i class="fas fa-search"></i> Buscar y seleccionar productos:</label>
+                <select id="product-select" class="product-select" multiple="multiple" style="width: 100%">
+                    <!-- Los productos se cargarán aquí -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-shopping-cart"></i> Productos seleccionados:</label>
+                <div id="selected-products">
+                    <p style="color: #666; text-align: center;"><i class="fas fa-info-circle"></i> No hay productos
+                        seleccionados</p>
+                </div>
+                <div class="total-display">Total: <span id="display-total">0</span></div>
+                <input type="hidden" id="total-price" value="0">
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-hand-holding-usd"></i> Anticipo:</label>
+                <div class="advance-options">
+                    <button id="percent-btn" class="active">Por porcentaje</button>
+                    <button id="amount-btn">Por monto</button>
+                </div>
+
+                <div id="percent-option">
+                    <select id="down-payment">
+                        <option value="10">10%</option>
+                        <option value="15">15%</option>
+                        <option value="20">20%</option>
+                        <option value="25">25%</option>
+                        <option value="30">30%</option>
+                        <option value="35">35%</option>
+                        <option value="40">40%</option>
+                        <option value="45">45%</option>
+                        <option value="50">50%</option>
+                    </select>
+                </div>
+
+                <div id="amount-option" style="display: none;">
+                    <input type="text" id="down-amount-input" placeholder="Ingrese monto de anticipo">
+                </div>
+
+                <div class="total-display" style="margin-top: 10px;">
+                    Anticipo: <span id="advance-display">0</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="installments"><i class="fas fa-calendar-alt"></i> Cantidad de cuotas:</label>
+                <select id="installments">
+                    <option value="18">18 cuotas</option>
+                    <option value="2">2 cuotas</option>
+                    <option value="3">3 cuotas</option>
+                    <option value="4">4 cuotas</option>
+                    <option value="5">5 cuotas</option>
+                    <option value="6">6 cuotas</option>
+                    <option value="7">7 cuotas</option>
+                    <option value="8">8 cuotas</option>
+                    <option value="9">9 cuotas</option>
+                    <option value="10">10 cuotas</option>
+                    <option value="11">11 cuotas</option>
+                    <option value="12">12 cuotas</option>
+                    <option value="13">13 cuotas</option>
+                    <option value="14">14 cuotas</option>
+                    <option value="15">15 cuotas</option>
+                    <option value="16">16 cuotas</option>
+                    <option value="17">17 cuotas</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="coeficient"><i class="fas fa-chart-line"></i> Coeficiente de financiamiento:</label>
+                <input type="number" id="coeficient" value="10.25" step="0.01" min="1">
+            </div>
+
+            <button id="calculate-btn" class="pulse">
+                <i class="fas fa-calculator"></i> Calcular Financiamiento
+            </button>
+
+            <div id="results">
+                <h3><i class="fas fa-file-invoice-dollar"></i> Resultados del cálculo:</h3>
+                <div class="result-item">
+                    <span>Precio de contado:</span>
+                    <span><span id="cash-price">0</span></span>
+                </div>
+                <div class="result-item">
+                    <span>Anticipo:</span>
+                    <span><span id="down-amount">0</span></span>
+                </div>
+                <div class="result-item">
+                    <span>Valor a financiar:</span>
+                    <span><span id="finance-amount">0</span></span>
+                </div>
+                <div class="result-item">
+                    <span>Cantidad de cuotas:</span>
+                    <span><span id="installments-number"></span> cuotas</span>
+                </div>
+                <div class="result-item">
+                    <span>Valor de cada cuota:</span>
+                    <span> <span id="installment-value">0</span></span>
+                </div>
+            </div>
+
+            <button id="copy-results">
+                <i class="fas fa-copy"></i> Copiar Resultados
+            </button>
+        </div>
+    </main>
+
+    <div class="copy-feedback" id="copy-feedback">
+        <i class="fas fa-check"></i> Resultados copiados al portapapeles
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.6.0/autoNumeric.min.js"></script>
+    <script>
+        // Coeficientes de financiamiento por cantidad de cuotas
+        const coeficients = {
+            2: 55.56,
+            3: 38.32,
+            4: 29.80,
+            5: 24.66,
+            6: 21.25,
+            7: 18.82,
+            8: 17.01,
+            9: 15.62,
+            10: 14.51,
+            11: 13.61,
+            12: 12.87,
+            13: 12.25,
+            14: 11.72,
+            15: 11.27,
+            16: 10.88,
+            17: 10.55,
+            18: 10.25
+        };
+
+        // Array para almacenar productos seleccionados
+        let selectedProducts = [];
+        let allProducts = [];
+        let advanceMode = 'percent'; // 'percent' o 'amount'
+
+        // Inicializar AutoNumeric para formatos de números
+        const numericOptions = {
+            digitGroupSeparator: '.',
+            decimalCharacter: ',',
+            decimalPlaces: 0,
+            allowDecimalPadding: false,
+            currencySymbol: '$ ',
+            currencySymbolPlacement: 'p',
+            unformatOnSubmit: true
+        };
+
+        // Variables para los controles de AutoNumeric
+        let amountInput, displayTotal, cashPrice, advanceDisplay, downAmountDisplay, financeAmount, installmentValue;
+
+        // Función para cargar usuarios desde Google Sheets
+        async function loadUsers() {
+            // Cambia esta URL por la correcta de tu hoja de usuarios
+            const usersUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQr4iamMN3wwxQtw6dPzahqYbWJLXYix1SMj8P5W26x8tT9F6t4JHAonlkikJDZmGsE47jn1z1GGpF-/pub?gid=740639817&single=true&output=csv';
+
+            try {
+                const response = await fetch(usersUrl);
+                if (!response.ok) throw new Error('Error al cargar los usuarios');
+                const csvData = await response.text();
+
+                // console.log("Datos crudos del CSV:", csvData); // Para depuración
+
+                // Convertir CSV a array de objetos
+                const lines = csvData.split('\n').filter(line => line.trim() !== '');
+                const headers = lines[0].split(',').map(header => header.trim().toLowerCase());
+
+                // Verificar que las columnas existan
+                if (!headers.includes('usuario') || !headers.includes('contrasena')) {
+                    throw new Error('El CSV no tiene las columnas requeridas (usuario, contrasena)');
+                }
+
+                const users = [];
+
+                for (let i = 1; i < lines.length; i++) {
+                    const currentline = lines[i].split(',');
+                    const user = {
+                        username: currentline[headers.indexOf('usuario')]?.trim(),
+                        password: currentline[headers.indexOf('contrasena')]?.trim()
+                    };
+
+                    if (user.username && user.password) {
+                        users.push(user);
+                    }
+                }
+
+                //console.log("Usuarios cargados:", users); // Para depuración
+                return users;
+            } catch (error) {
+                console.error('Error al cargar usuarios:', error);
+                return [];
+            }
+        }
+
+        async function validateLogin(username, password) {
+            const users = await loadUsers();
+            // console.log("Validando:", username, "contra", users); // Depuración
+
+            const userFound = users.find(user =>
+                user.username.toLowerCase() === username.toLowerCase() &&
+                user.password === password
+            );
+
+            // console.log("Resultado validación:", userFound !== undefined); // Depuración
+            return userFound !== undefined;
+        }
+
+        // Inicializar Select2
+        function initProductSelect() {
+            $('#product-select').select2({
+                placeholder: "Buscar y seleccionar productos",
+                allowClear: true,
+                width: '100%',
+                language: {
+                    noResults: function () {
+                        return "No se encontraron productos";
+                    },
+                    searching: function () {
+                        return "Buscando...";
+                    }
+                }
+            });
+
+            // Manejar selección de productos
+            $('#product-select').on('change', function () {
+                const selectedIds = $(this).val() || [];
+                selectedProducts = allProducts.filter(product => selectedIds.includes(product.id));
+                updateSelectedProductsList();
+                calculateFinancing();
+            });
+        }
+
+        // Cargar productos desde Google Sheets
+        async function loadProducts() {
+            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQr4iamMN3wwxQtw6dPzahqYbWJLXYix1SMj8P5W26x8tT9F6t4JHAonlkikJDZmGsE47jn1z1GGpF-/pub?gid=0&single=true&output=csv';
+            try {
+                const response = await fetch(csvUrl);
+                if (!response.ok) throw new Error('Error al cargar los productos');
+                const csvData = await response.text();
+
+                // Convertir CSV a array de objetos
+                const lines = csvData.split('\n');
+                const headers = lines[0].split(',');
+                const result = [];
+
+                for (let i = 1; i < lines.length; i++) {
+                    const obj = {};
+                    const currentline = lines[i].split(',');
+
+                    for (let j = 0; j < headers.length; j++) {
+                        obj[headers[j].trim()] = currentline[j] ? currentline[j].trim() : '';
+                    }
+
+                    // Convertir precio a número
+                    obj.precio_lista = parseFloat(obj.precio_lista) || 0;
+
+                    result.push(obj);
+                }
+
+                allProducts = result;
+                populateProductSelect(result);
+                initProductSelect();
+                initNumericFormats();
+                setupAdvanceOptions();
+                setupCopyButton();
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('error').textContent = 'Error al cargar los productos: ' + error.message;
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+
+        // Inicializar formatos numéricos
+        function initNumericFormats() {
+            // Input de monto de anticipo
+            amountInput = new AutoNumeric('#down-amount-input', numericOptions);
+
+            // Elementos de visualización
+            displayTotal = new AutoNumeric('#display-total', numericOptions);
+            cashPrice = new AutoNumeric('#cash-price', numericOptions);
+            advanceDisplay = new AutoNumeric('#advance-display', numericOptions);
+            downAmountDisplay = new AutoNumeric('#down-amount', numericOptions);
+            financeAmount = new AutoNumeric('#finance-amount', numericOptions);
+            installmentValue = new AutoNumeric('#installment-value', numericOptions);
+        }
+
+        // Configurar opciones de anticipo
+        function setupAdvanceOptions() {
+            const percentBtn = document.getElementById('percent-btn');
+            const amountBtn = document.getElementById('amount-btn');
+            const percentOption = document.getElementById('percent-option');
+            const amountOption = document.getElementById('amount-option');
+
+            percentBtn.addEventListener('click', function () {
+                advanceMode = 'percent';
+                percentOption.style.display = 'block';
+                amountOption.style.display = 'none';
+                percentBtn.classList.add('active');
+                amountBtn.classList.remove('active');
+                calculateFinancing();
+            });
+
+            amountBtn.addEventListener('click', function () {
+                advanceMode = 'amount';
+                percentOption.style.display = 'none';
+                amountOption.style.display = 'block';
+                amountBtn.classList.add('active');
+                percentBtn.classList.remove('active');
+
+                // Calcular el 10% como valor por defecto
+                const total = parseFloat(document.getElementById('total-price').value) || 0;
+                const defaultAmount = total * 0.1;
+                amountInput.set(defaultAmount);
+
+                calculateFinancing();
+            });
+
+            // Escuchar cambios en el input de monto
+            document.getElementById('down-amount-input').addEventListener('input', function () {
+                calculateFinancing();
+            });
+        }
+
+        // Configurar botón de copiar
+        function setupCopyButton() {
+            document.getElementById('copy-results').addEventListener('click', function () {
+                copyResultsToClipboard();
+            });
+        }
+
+        // Copiar resultados al portapapeles
+        function copyResultsToClipboard() {
+            if (selectedProducts.length === 0) {
+                showCopyFeedback('No hay productos seleccionados para copiar', false);
+                return;
+            }
+
+            // Obtener nombres de productos seleccionados
+            const productNames = selectedProducts.map(p => p.detalle).join('\n');
+
+            // Obtener valores formateados
+            const total = document.getElementById('display-total').textContent;
+            const financeAmount = document.getElementById('finance-amount').textContent;
+            const anticipo = document.getElementById('down-amount').textContent;
+            const installments = document.getElementById('installments-number').textContent;
+            const installmentValue = document.getElementById('installment-value').textContent;
+
+            // Crear texto para copiar
+            const textToCopy = `LISTADO DE PRODUCTOS:\n${productNames}\n\n- *SUMA TOTAL:* ${total}\n- *DEPOSITO INICIAL:* ${anticipo}\n- *MONTO A FINANCIAR:* ${financeAmount}\n- *CANTIDAD DE CUOTAS:* ${installments}\n- *VALOR DE CADA CUOTA:* ${installmentValue}`;
+
+            // Copiar al portapapeles
+            navigator.clipboard.writeText(textToCopy).then(function () {
+                showCopyFeedback('Resultados copiados al portapapeles', true);
+            }, function () {
+                showCopyFeedback('Error al copiar los resultados', false);
+            });
+        }
+
+        // Mostrar feedback de copiado
+        function showCopyFeedback(message, isSuccess) {
+            const feedback = document.getElementById('copy-feedback');
+            feedback.textContent = message;
+            feedback.style.backgroundColor = isSuccess ? 'var(--success)' : 'var(--accent)';
+            feedback.style.display = 'block';
+
+            setTimeout(function () {
+                feedback.style.display = 'none';
+            }, 3000);
+        }
+
+        // Poblar el selector de productos
+        function populateProductSelect(products) {
+            const select = $('#product-select');
+            select.empty();
+
+            products.forEach(product => {
+                const option = new Option(
+                    `${product.detalle} - $${formatNumber(product.precio_lista)}`,
+                    product.id,
+                    false,
+                    false
+                );
+                select.append(option).trigger('change');
+            });
+        }
+
+        // Formatear número con separadores
+        function formatNumber(num) {
+            return new Intl.NumberFormat('es-AR').format(num);
+        }
+
+        // Actualizar la lista de productos seleccionados
+        function updateSelectedProductsList() {
+            const container = document.getElementById('selected-products');
+            const totalPriceInput = document.getElementById('total-price');
+
+            if (selectedProducts.length === 0) {
+                container.innerHTML = '<p style="color: #666; text-align: center;"><i class="fas fa-info-circle"></i> No hay productos seleccionados</p>';
+                totalPriceInput.value = 0;
+                displayTotal.set(0);
+                return;
+            }
+
+            container.innerHTML = '';
+            let total = 0;
+
+            selectedProducts.forEach((product, index) => {
+                const productElement = document.createElement('div');
+                productElement.className = 'selected-product';
+                productElement.innerHTML = `
+                    <span><i class="fas fa-box"></i> ${product.detalle} ($${formatNumber(product.precio_lista)})</span>
+                    <button class="remove-product" data-id="${product.id}" title="Eliminar">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                container.appendChild(productElement);
+                total += product.precio_lista;
+            });
+
+            totalPriceInput.value = total;
+            displayTotal.set(total);
+
+            // Agregar event listeners para eliminar productos
+            document.querySelectorAll('.remove-product').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const productId = button.getAttribute('data-id');
+                    selectedProducts = selectedProducts.filter(p => p.id !== productId);
+
+                    // Actualizar el select2
+                    const currentValues = $('#product-select').val() || [];
+                    const newValues = currentValues.filter(id => id !== productId);
+                    $('#product-select').val(newValues).trigger('change');
+
+                    updateSelectedProductsList();
+                    calculateFinancing();
+                });
+            });
+        }
+
+        // Calcular financiamiento CORREGIDO
+        function calculateFinancing() {
+            const totalPrice = parseFloat(document.getElementById('total-price').value) || 0;
+            const installments = parseInt(document.getElementById('installments').value) || 18;
+            const coeficient = parseFloat(document.getElementById('coeficient').value) || 10.25;
+
+            let downAmount = 0;
+
+            if (advanceMode === 'percent') {
+                const downPercent = parseInt(document.getElementById('down-payment').value) || 10;
+                downAmount = totalPrice * (downPercent / 100);
+            } else {
+                downAmount = amountInput.getNumber() || 0;
+                if (downAmount > totalPrice) {
+                    downAmount = totalPrice;
+                    amountInput.set(downAmount);
+                }
+            }
+
+            const financeAmountValue = totalPrice - downAmount;
+
+            // CÁLCULO CORREGIDO DEL VALOR DE LA CUOTA:
+            // (Valor a financiar × Coeficiente) / 100
+            const installmentValueValue = Math.round((financeAmountValue * coeficient) / 100);
+
+            // Actualizar displays
+            cashPrice.set(totalPrice);
+            advanceDisplay.set(downAmount);
+            downAmountDisplay.set(downAmount);
+            financeAmount.set(financeAmountValue);
+            installmentValue.set(installmentValueValue);
+
+            // ACTUALIZAR CANTIDAD DE CUOTAS (CORRECCIÓN)
+            document.getElementById('installments-number').textContent = installments;
+
+            // Mostrar/ocultar sección de resultados
+            document.getElementById('results').style.display = totalPrice > 0 ? 'block' : 'none';
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Configurar el evento de login
+            document.getElementById('login-btn').addEventListener('click', async function () {
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value.trim();
+                const errorElement = document.getElementById('login-error');
+
+                if (!username || !password) {
+                    errorElement.textContent = 'Por favor ingrese usuario y contraseña';
+                    errorElement.style.display = 'block';
+                    return;
+                }
+
+                const isValid = await validateLogin(username, password);
+
+                if (isValid) {
+                    // Ocultar login y mostrar calculadora
+                    document.getElementById('login-section').style.display = 'none';
+                    document.getElementById('calculator-section').style.display = 'block';
+
+                    // Cargar productos
+                    loadProducts();
+                } else {
+                    errorElement.textContent = 'Usuario o contraseña incorrectos';
+                    errorElement.style.display = 'block';
+                }
+            });
+
+            // Permitir login con Enter
+            document.getElementById('password').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('login-btn').click();
+                }
+            });
+
+            // Configurar eventos para recalcular automáticamente
+            document.getElementById('down-payment').addEventListener('change', calculateFinancing);
+            document.getElementById('installments').addEventListener('change', function () {
+                const installments = parseInt(this.value);
+                document.getElementById('coeficient').value = coeficients[installments] || 10.25;
+                calculateFinancing();
+            });
+            document.getElementById('coeficient').addEventListener('change', calculateFinancing);
+
+            // Calcular al hacer clic en el botón (redundante pero útil)
+            document.getElementById('calculate-btn').addEventListener('click', calculateFinancing);
+        });
+    </script>
+</body>
+
+</html>
